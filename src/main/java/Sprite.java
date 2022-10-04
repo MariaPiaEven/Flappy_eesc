@@ -4,6 +4,7 @@ public abstract class Sprite {
     protected int x;
     protected int y;
 
+
     protected Color couleur;
 
     public Sprite(int x, int y, Color couleur) {
@@ -15,12 +16,14 @@ public abstract class Sprite {
     public Sprite(int x, int y) {
         this.x = x;
         this.y = y;
-        this.couleur = Color.RED;
+        this.couleur = Color.blue;
     }
 
-
-
     public abstract void dessiner(Graphics2D dessin);
+
+    public abstract int getCentreX();
+
+    public abstract int getCentreY();
 
     public int getX() {
         return x;

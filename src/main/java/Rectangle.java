@@ -4,14 +4,21 @@ public abstract class Rectangle extends Carre {
 
     protected int hauteur;
 
+
     public Rectangle(int x, int y, int largeur, int hauteur, Color couleur) {
         super(x, y, largeur, couleur);
         this.hauteur = hauteur;
     }
 
     public Rectangle(int x, int y, int largeur, int hauteur) {
-        super(x, y, largeur, Color.green);
+        super(x, y, largeur, Color.pink);
         this.hauteur = hauteur;
+    }
+
+
+    @Override
+    public int getCentreY() {
+        return hauteur / 2;
     }
 
     public int getHauteur() {
