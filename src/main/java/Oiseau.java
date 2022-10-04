@@ -4,6 +4,19 @@ public class Oiseau extends Carre
 {
     protected int vitesseVertical;
 
+    public Oiseau(int x, int y) {
+        super(x, y, 40);
+        this.vitesseVertical = 0;
+    }
+
+    @Override
+    public void dessiner(Graphics2D dessin) {
+
+    }
+    public void sauter() {
+
+    }
+
     public int getVitesseVertical() {
         return vitesseVertical;
     }
@@ -12,12 +25,5 @@ public class Oiseau extends Carre
         this.vitesseVertical = vitesseVertical;
     }
 
-    public void sauter() {
 
-    }
-
-    @Override
-    public void dessiner(Graphics2D dessin) {
-
-    }
 }
