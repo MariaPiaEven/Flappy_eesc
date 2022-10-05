@@ -66,7 +66,8 @@ public class Flappy extends Canvas implements KeyListener {
             for (int i = 0; i < 50; i++) {
                 Nuage nuage = new Nuage(largeurEcran, hauteurEcran);
                 listeDeplacable.add(nuage);
-                listeSprite.add(nuage);            }
+                listeSprite.add(nuage);
+            }
 
         } else {
             for (Deplacable deplacable : listeDeplacable) {
@@ -110,6 +111,12 @@ public class Flappy extends Canvas implements KeyListener {
                     for (Deplacable deplacable : listeDeplacable) {
                         deplacable.deplacer(largeurEcran, hauteurEcran);
                     }
+
+                    if (tuyau.collision(oiseau)) {
+                        System.out.println("perdu");
+                        pause = true;
+                    }
+
                 }
             } else {
                 dessin.setColor(new Color(0, 0, 0, 0.1f));
@@ -140,7 +147,7 @@ public class Flappy extends Canvas implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            oiseau.setVitesseVertical(2);
+            oiseau.sauter();
         }
 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {

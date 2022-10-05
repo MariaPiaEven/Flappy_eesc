@@ -23,12 +23,13 @@ public class Nuage extends Rectangle implements Deplacable {
 
         if (x < -largeur) {
             reinitialiser(largeurEcran, hauteurEcran);
+            x += largeurEcran;
         }
     }
 
     @Override
     public void reinitialiser(int largeurEcran, int hauteurEcran) {
-        x = (int) (Math.random() * largeurEcran) + largeurEcran;
+        x = (int) (Math.random() * largeurEcran);
         y = (int) (Math.random() * (hauteurEcran / 2));
         largeur = (int) (Math.random() * 40 + 80);
         hauteur = (int) (Math.random() * 20 + 20);

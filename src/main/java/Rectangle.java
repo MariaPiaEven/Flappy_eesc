@@ -15,6 +15,13 @@ public abstract class Rectangle extends Carre {
         this.hauteur = hauteur;
     }
 
+    @Override
+    public boolean collision(int x, int y) {
+        return x >= this.x
+                && x <= this.x + largeur
+                && y >= this.y
+                && y <= this.y + hauteur;
+    }
 
     @Override
     public int getCentreY() {
