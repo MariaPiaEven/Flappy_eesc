@@ -12,11 +12,11 @@ public class Oiseau extends Carre implements Deplacable {
 
     public Oiseau(int hauteurEcran) {
         super(50, 0, HAUTEUR_OISEAU);
-        reinitialiser(hauteurEcran);
+        reinitialiser(0, hauteurEcran);
         this.vitesseVertical = 0;
     }
 
-    public void reinitialiser(int hauteurEcran) {
+    public void reinitialiser(int largeurEcran, int hauteurEcran) {
         y = hauteurEcran / 2 - HAUTEUR_OISEAU / 2;
         vitesseVertical = 0;
     }
@@ -28,7 +28,7 @@ public class Oiseau extends Carre implements Deplacable {
     }
 
     @Override
-    public void deplacer() {
+    public void deplacer(int largeurEcran, int hauteurEcran) {
 
         //Petite correction de la gravité, pour eviter un temps de flotement
         //Si la vitesse est comprise entre -0,1 et -0,9

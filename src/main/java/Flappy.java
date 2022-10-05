@@ -45,21 +45,34 @@ public class Flappy extends Canvas implements KeyListener {
     }
 
     public void initialiser() {
+
+        pause = false;
+
         //si c'est la première initialisation
         if (oiseau == null) {
             oiseau = new Oiseau(hauteurEcran);
-            pause = false;
             tuyau = new Tuyau(200, hauteurEcran, largeurEcran);
 
+//            Nuage nuage = new Nuage(largeurEcran, hauteurEcran);
             listeDeplacable.add(tuyau);
             listeDeplacable.add(oiseau);
+//            listeDeplacable.add(nuage);
 
             listeSprite.add(tuyau);
             listeSprite.add(oiseau);
+//            listeSprite.add(nuage);
+
+            //ajout nuages
+            for (int i = 0; i < 50; i++) {
+                Nuage nuage = new Nuage(largeurEcran, hauteurEcran);
+                listeDeplacable.add(nuage);
+                listeSprite.add(nuage);            }
 
         } else {
-            oiseau.reinitialiser(hauteurEcran);
-            tuyau.reinitialiser(largeurEcran);
+            for (Deplacable deplacable : listeDeplacable) {
+                deplacable.reinitialiser(largeurEcran, hauteurEcran);
+            }
+
         }
     }
 
@@ -95,7 +108,7 @@ public class Flappy extends Canvas implements KeyListener {
 //                    tuyau.deplacer();
 
                     for (Deplacable deplacable : listeDeplacable) {
-                        deplacable.deplacer();
+                        deplacable.deplacer(largeurEcran, hauteurEcran);
                     }
                 }
             } else {
