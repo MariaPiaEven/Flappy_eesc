@@ -1,11 +1,16 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Flappy extends Canvas implements KeyListener {
 
+    protected BufferedImage image;
     protected int largeurEcran = 600;
     protected int hauteurEcran = 600;
 
@@ -13,12 +18,21 @@ public class Flappy extends Canvas implements KeyListener {
 
     protected Oiseau oiseau;
 
-    protected Tuyau tuyau;
+//    protected Tuyau tuyau;
+
+    protected ArrayList<Tuyau> listeTuyau = new ArrayList<>();
 
     protected ArrayList<Deplacable> listeDeplacable = new ArrayList<>();
     protected ArrayList<Sprite> listeSprite = new ArrayList<>();
 
     public Flappy() throws InterruptedException {
+
+        try {
+            image = ImageIO.read(new File("src/main/resources/fond.png"));
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         JFrame fenetre = new JFrame("Flappy");
         //On récupère le panneau de la fenetre principale
         JPanel panneau = (JPanel) fenetre.getContentPane();
@@ -50,24 +64,33 @@ public class Flappy extends Canvas implements KeyListener {
 
         //si c'est la première initialisation
         if (oiseau == null) {
-            oiseau = new Oiseau(hauteurEcran);
-            tuyau = new Tuyau(200, hauteurEcran, largeurEcran);
 
+//            tuyau = new Tuyau(200, hauteurEcran, largeurEcran);
 //            Nuage nuage = new Nuage(largeurEcran, hauteurEcran);
-            listeDeplacable.add(tuyau);
-            listeDeplacable.add(oiseau);
+
+//            listeDeplacable.add(tuyau);
 //            listeDeplacable.add(nuage);
 
-            listeSprite.add(tuyau);
-            listeSprite.add(oiseau);
+//            listeSprite.add(tuyau);
 //            listeSprite.add(nuage);
 
             //ajout nuages
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 3; i++) {
                 Nuage nuage = new Nuage(largeurEcran, hauteurEcran);
                 listeDeplacable.add(nuage);
                 listeSprite.add(nuage);
             }
+
+            for (int i = 0; i < 3; i++) {
+                Tuyau tuyau = new Tuyau(100, largeurEcran, hauteurEcran);
+                listeDeplacable.add(tuyau);
+                listeSprite.add(tuyau);
+                listeTuyau.add(tuyau);
+            }
+
+            oiseau = new Oiseau(hauteurEcran);
+            listeDeplacable.add(oiseau);
+            listeSprite.add(oiseau);
 
         } else {
             for (Deplacable deplacable : listeDeplacable) {
@@ -90,8 +113,9 @@ public class Flappy extends Canvas implements KeyListener {
 
             //-----------------------------
             //reset dessin
-            dessin.setColor(Color.WHITE);
-            dessin.fillRect(0, 0, largeurEcran, hauteurEcran);
+            dessin.setColor(Color.white);
+//            dessin.fillRect(0, 0, largeurEcran, hauteurEcran);
+            dessin.drawImage(image, 0, 0, null);
 
             for (Sprite sprite : listeSprite) {
                 sprite.dessiner(dessin);
@@ -112,9 +136,12 @@ public class Flappy extends Canvas implements KeyListener {
                         deplacable.deplacer(largeurEcran, hauteurEcran);
                     }
 
-                    if (Sprite.testCollision(oiseau,tuyau)) {
-                        System.out.println("perdu");
-                        pause = true;
+                    for (Tuyau tuyau : listeTuyau) {
+                        if (Sprite.testCollision(oiseau, tuyau)) {
+                            System.out.println("perdu");
+                            pause = true;
+                        }
+
                     }
 
                 }

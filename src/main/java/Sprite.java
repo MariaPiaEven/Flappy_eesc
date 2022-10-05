@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class Sprite {
     protected int x;
@@ -16,7 +17,7 @@ public abstract class Sprite {
     public Sprite(int x, int y) {
         this.x = x;
         this.y = y;
-        this.couleur = Color.blue;
+        this.couleur = Color.red;
     }
 
     public static boolean testCollision(Sprite sprite1, Sprite sprite2){

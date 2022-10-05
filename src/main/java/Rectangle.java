@@ -11,7 +11,7 @@ public abstract class Rectangle extends Carre {
     }
 
     public Rectangle(int x, int y, int largeur, int hauteur) {
-        super(x, y, largeur, Color.pink);
+        super(x, y, largeur, Color.green);
         this.hauteur = hauteur;
     }
 

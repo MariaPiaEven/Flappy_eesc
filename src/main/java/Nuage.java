@@ -1,18 +1,29 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Nuage extends Rectangle implements Deplacable {
 
-
+    protected BufferedImage image;
     public Nuage(int largeurEcran, int hauteurEcran) {
         super(0, 0, 0, 0, new Color(0, 0, 0, 0.05f));
         reinitialiser(largeurEcran, hauteurEcran);
         x -= (int)(Math.random() * largeurEcran);
+
+        try {
+            image = ImageIO.read(new File("src/main/resources/nuage.png"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void dessiner(Graphics2D dessin) {
         dessin.setColor(couleur);
-        dessin.fillRect(x, y, largeur, hauteur);
+//        dessin.fillRect(x, y, largeur, hauteur);
+        dessin.drawImage(image, x, y,null);
     }
 
     @Override
