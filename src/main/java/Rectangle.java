@@ -15,6 +15,10 @@ public abstract class Rectangle extends Carre {
         this.hauteur = hauteur;
     }
 
+    public Rectangle(int largeur) {
+        super(0, 0, largeur,  Color.green);
+    }
+
     @Override
     public boolean collision(int x, int y) {
         return x >= this.x

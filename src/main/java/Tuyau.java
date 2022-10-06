@@ -7,15 +7,25 @@ import java.io.IOException;
 public class Tuyau extends Rectangle implements Deplacable {
 
     protected BufferedImage image;
+    protected int ecart;
+    protected int ordreApparition;
 
-    public Tuyau(int hauteur, int hauteurEcran, int largeurEcran) {
-        super(largeurEcran - 100, hauteurEcran - hauteur, 100, hauteur);
-        x -= (int)(Math.random() * largeurEcran);
-        y -= (int)(Math.random() * largeurEcran);
+    public Tuyau(int hauteur, int hauteurEcran, int largeurEcran, int ecart, int ordreApparition) {
+        super(100);
+        this.ecart = ecart;
+        this.ordreApparition = ordreApparition;
+       reinitialiser( largeurEcran, hauteurEcran);
+
+
 
         try {
-            BufferedImage imageOriginal = ImageIO.read(new File("src/main/resources/tuyau.png"));
-            image = Utils.resizeImage(imageOriginal,100,100);
+
+            BufferedImage imageOriginal = ImageIO.read(new File("src/main/resources/tuyau-haut-bout.png"));
+
+//            BufferedImage imageOriginal1 = ImageIO.read(new File("src/main/resources/tuyau-bas-bout.png"));
+
+            //Pour redimensioner
+            image = Utils.resizeImage(imageOriginal, 100, 100);
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -25,17 +35,26 @@ public class Tuyau extends Rectangle implements Deplacable {
     @Override
     public void dessiner(Graphics2D dessin) {
         dessin.setColor(couleur);
-//        dessin.fillRect(x, y, largeur, hauteur);
-        dessin.drawImage(image, x, y,null);
+       dessin.fillRect(x, y, largeur, hauteur);
+        dessin.drawImage(image, x, y, null);
     }
 
     @Override
     public void deplacer(int largeurEcran, int hauteurEcran) {
-        x -= 2;
+
+        x-= 5;
+
+        if (x < -largeur){
+            reinitialiser(largeurEcran,hauteurEcran);
+        }
+
     }
 
     public void reinitialiser(int largeurEcran, int hauteurEcran) {
-        x = (int) (Math.random() * largeurEcran);
-        y = (int) (Math.random() * (hauteurEcran / 2));
+
+        x = largeurEcran + ecart * ordreApparition;
+
+        hauteur = (int) (Math.random() * 300);
+        y = hauteurEcran - hauteur;
     }
 }
